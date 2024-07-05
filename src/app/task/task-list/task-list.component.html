@@ -1,0 +1,16 @@
+<div class="justify-content-center w-100 text-center ">
+  <h1 class="mt-5">Task Manager</h1>
+  <div class="d-flex justify-content-between">
+    <h2 class="d-inline-block">Todo List</h2>
+    <button mat-raised-button color="primary" (click)="openDialog(null)">New Task</button>
+  </div>
+  <mat-grid-list cols="4" rowHeight="1:1" gutterSize="1">
+    @for (task of (tasks$ | async); track task.id) {
+      <mat-grid-tile>
+        <div class="w-100">
+          <app-task-card [task]="task" (complete)="onComplete($event)" (delete)="onDelete($event)" (edit)="openDialog($event)"></app-task-card>
+        </div>
+      </mat-grid-tile>
+    }
+  </mat-grid-list>
+</div>

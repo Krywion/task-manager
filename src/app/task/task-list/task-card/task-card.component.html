@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-light">
+      <h3 class="card-title">{{task?.title}}</h3>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{task?.description}}</p>
+      <p class="card-text">Status: <span [ngClass]="{'text-success': task?.done, 'text-danger': !task?.done}">{{task?.done ? 'Completed' : 'Pending'}}</span></p>
+    </div>
+    <div class="card-footer text-right w-100">
+      <div class="d-flex justify-content-between w-100">
+        <button type="button" class="btn btn-primary" (click)="onEdit(task)">Edit</button>
+        <button type="button" class="btn btn-success" (click)="onComplete(task?.id)">Complete</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete(task?.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
