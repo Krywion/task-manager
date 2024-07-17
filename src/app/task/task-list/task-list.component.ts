@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { TaskService } from "../task.service";
 import {
   MatTableModule
@@ -28,7 +28,7 @@ import {TaskCardComponent} from "./task-card/task-card.component";
 })
 export class TaskListComponent {
 
-
+  gridCols: number = 3;
 
   tasks$ = this.taskService.getTasks();
   displayedColumns: string[] = ['id', 'description', 'done', 'actions'];
@@ -53,4 +53,21 @@ export class TaskListComponent {
       data: task
     });
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateGridCols();
+  }
+
+  updateGridCols() {
+    const width = window.innerWidth;
+    if (width <= 960) {
+      this.gridCols = 1;
+    } else if (width <= 1320) {
+      this.gridCols = 2;
+    } else {
+      this.gridCols = 3;
+    }
+  }
+
 }

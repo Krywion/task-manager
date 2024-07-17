@@ -1,14 +1,21 @@
-<div class="justify-content-center w-100 text-center">
-  <h1 class="mt-5">Task Manager</h1>
-  <div class="d-flex justify-content-between">
-    <h2 class="d-inline-block">Todo List</h2>
-    <button mat-raised-button color="primary" (click)="openDialog(null)">New Task</button>
+<div class="container">
+  <div class="justify-content-center w-100 text-center">
+    <h1 class="mt-5">Task Manager</h1>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+      <h2 class="d-inline-block mb-3 mb-md-0">Todo List</h2>
+      <button mat-raised-button color="primary" (click)="openDialog(null)">New Task</button>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-grid-list [cols]="gridCols" rowHeight="1:1" class="grid-list">
+          @for (task of (tasks$ | async); track task.id) {
+            <mat-grid-tile>
+              <app-task-card [task]="task" (complete)="onComplete($event)" (delete)="onDelete($event)" (edit)="openDialog($event)"></app-task-card>
+            </mat-grid-tile>
+          }
+        </mat-grid-list>
+      </div>
+    </div>
+
   </div>
-  <mat-grid-list cols="3" rowHeight="1:1">
-    @for (task of (tasks$ | async); track task.id) {
-      <mat-grid-tile>
-          <app-task-card [task]="task" (complete)="onComplete($event)" (delete)="onDelete($event)" (edit)="openDialog($event)"></app-task-card>
-      </mat-grid-tile>
-    }
-  </mat-grid-list>
 </div>
